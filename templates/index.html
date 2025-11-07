@@ -8,5 +8,51 @@
 </head>
 <body>
     
+    <nav class="nv">
+        <div class="all">
+
+
+            <div class="left">
+            </div>
+
+
+            <div class="center">
+                <a href="#" class="anc feed">Feed</a>
+                <a href="#" class="anc">Categories</a>
+                <a href="#" class="anc">List</a>
+            </div>
+
+
+            <div class="right">
+                <img src="../static/icon.png" class="profile">
+            </div>
+
+
+        </div>
+    </nav>
+
+
+    {% if current_user.is_authenticated %}
+
+    <script>
+        const profile2 = document.querySelector(".profile");
+
+        profile2.addEventListener('click', ()=> {
+            console.log("settings")
+            // window.location.href = "{# url_for('account.html') #}"
+        })
+    </script>
+    
+    {% else %}
+
+    <script>
+        const profile = document.querySelector(".profile");
+
+        profile.addEventListener('click', ()=> {
+            window.location.href = "{{ url_for('login') }}"
+        })
+    </script>
+
+    {% endif %}
 </body>
 </html>
