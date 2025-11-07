@@ -99,10 +99,12 @@ html body {
 
 .leftbox {
     display: flex;
-    align-items: flex-start;
-    justify-content: center;
+    align-items: center;
+    justify-content: flex-start;
     height: 100%;
     width: 100%;
+    flex-direction: column;
+    margin-left: 125px;
 }
 
 .centerbox {
@@ -115,10 +117,12 @@ html body {
 
 .rightbox {
     display: flex;
-    align-items: flex-start;
-    justify-content: center;
+    align-items: center;
+    justify-content: flex-start;
     height: 100%;
     width: 100%;
+    flex-direction: column;
+    margin-right: 125px;
 }
 
 .line {
@@ -126,16 +130,74 @@ html body {
     width: 5px;
     border-radius: 5px;
     background-color: white;
+    opacity: 0.5;
 }
 
 .logtitle {
     font-size: 50px;
     color: white;
-    margin-left: 150px;
+
 }
 
 .signtitle {
     font-size: 50px;
     color: white;
-    margin-right: 150px;
+
+}
+
+.inp {
+    height: 25px;
+    width: 275px;
+    border-radius: 10px;
+    outline: none;
+    border: none;
+    padding-left: 15px;
+    font-size: 20px;
+}
+
+.inpCon {
+    margin-top: 50px;
+    gap: 20px;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+}
+
+.lb {
+    font-size: 20px;
+    color: white;
+    margin-right: 190px;
+}
+
+.signconpass {
+    width: 100%;
+    text-align: right;
+    margin-left: -60px;
+}
+
+.submit {
+    height: 45px;
+    width: 225px;
+    border-radius: 12px;
+    outline: none;
+    border: none;
+    background-color: #F5F5F5;
+    font-size: 22px;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+}
+
+.submit:hover {
+    transform: translateY(-8px);
+    cursor: pointer;
+    background-color: black;
+    color: white;
+}
+
+.alert {
+    color: red;
+    font-size: 50px;
+    font-weight: bolder
 }

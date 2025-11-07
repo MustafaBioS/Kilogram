@@ -1,8 +1,8 @@
-from flask import Flask, render_template
+from flask import Flask, flash, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
-from flask_login import UserMixin, current_user, LoginManager
+from flask_login import UserMixin, current_user, LoginManager, login_user, logout_user
 from dotenv import load_dotenv
 import os
 
@@ -12,6 +12,7 @@ app = Flask(__name__)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
 
+load_dotenv()
 secret = os.getenv("secret_key")
 app.config['SECRET_KEY'] = secret
 
@@ -29,8 +30,8 @@ login_manager.login_view = "login"
 
 class Users(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(64), nullable=False, unique=False)
-    password = db.Column(db.String(64), nullable=False)
+    username = db.Column(db.String(64), nullable=False, unique=True)
+    password = db.Column(db.String(128), nullable=False)
 
 
 
@@ -46,7 +47,52 @@ def home():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
-    return render_template("account.html")
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+
+    if request.method == 'GET':
+        return render_template("account.html")
+    
+    if request.method == 'POST':
+        loguser = request.form.get("loguser")
+        logpass = request.form.get("logpass")
+
+        signuser = request.form.get("signuser")
+        signpass = request.form.get("signpass")
+        signcon = request.form.get("signcon")
+
+
+        if signuser and signpass:
+            if signpass == signcon:
+                hashed_pw = bcrypt.generate_password_hash(signpass).decode('utf-8')
+                new_user = Users(username=signuser, password=hashed_pw)
+                try:
+                    db.session.add(new_user)
+                    db.session.commit()
+                    login_user(new_user)
+                    flash("Account Created Successfully", 'success')
+                    return redirect(url_for("home"))
+                except Exception as e:
+                    db.session.rollback()
+                    flash("Username Already Taken", 'fail')
+                    return redirect(url_for('login'))
+            else:
+                flash("Passwords Do Not Match", 'fail')
+                return redirect(url_for('login'))
+
+        if loguser and logpass:
+            user = Users.query.filter_by(username=loguser).first()
+            if user and bcrypt.check_password_hash(user.password, logpass):
+                login_user(user)
+                flash("Logged In Successfully", 'success')
+                return redirect(url_for('home'))
+            else:
+                flash("Incorrect Credentials", 'fail')
+                return redirect(url_for('login'))
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
 
 # Run
 

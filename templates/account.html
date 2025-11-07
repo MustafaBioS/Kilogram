@@ -5,12 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account</title>
     <link rel="stylesheet" href="../static/styles.css">
+    <link rel="icon" type="image/x-icon" href="../static/burg.png">
 </head>
 <body>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+
     <div class="con">
         <div class="box">
             <div class="leftbox">
                 <h1 class="logtitle">Login</h1>
+                <form class="inpCon leftinp" action="{{ url_for('login') }}" method="post">
+                    <label class="loguserlb userlb lb">Username</label>
+                    <input type="text" class="inp username loguser" name="loguser" minlength="6" maxlength="26" required>
+                    <label class="logpasslb passlb lb">Password</label>
+                    <input type="password" class="inp password logpass" name="logpass" minlength="8" maxlength="28" required>
+                    <input type="submit" class="submit leftsub" value="Login">
+                </form>
+
             </div>
 
             <div class="centerbox">
@@ -19,6 +40,15 @@
 
             <div class="rightbox">
                 <h1 class="signtitle">Sign Up</h1>
+                <form class="inpCon" action="{{ url_for('login') }}" method="post">
+                    <label class="signuserlb userlb lb">Username</label>
+                    <input type="text" class="inp username signuser" name="signuser" minlength="6" maxlength="26" required>
+                    <label class="signpasslb passlb lb">Password</label>
+                    <input type="password" class="inp password signpass" name="signpass" minlength="8" maxlength="28" required>
+                    <label class="signconpass lb">Confirm Password</label>
+                    <input type="password" class="inp password signcon" name="signcon" minlength="8" maxlength="28" required>
+                    <input type="submit" class="submit rightsub" value="Create Account">
+                </form>
             </div>
 
         </div>
