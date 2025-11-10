@@ -32,7 +32,10 @@ class Users(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), nullable=False, unique=True)
     password = db.Column(db.String(128), nullable=False)
-
+    followers = db.Column(db.Integer, nullable=False, default=0)
+    following = db.Column(db.Integer, nullable=False, default=0)
+    likes = db.Column(db.Integer, nullable=False, default=0)
+    pfp = db.Column(db.String(64), nullable=False, default='../static/pfp/pfp.png')
 
 
 # Routes
@@ -93,6 +96,11 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('home'))
+
+@app.route('/settings', methods=['GET', 'POST'])
+def settings():
+    if request.method == 'GET':
+        return render_template('settings.html')
 
 # Run
 
