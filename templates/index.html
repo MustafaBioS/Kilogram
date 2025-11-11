@@ -32,6 +32,13 @@
         </div>
     </nav>
 
+    <div class="feed">
+        {% for user in users %}
+            <a href="{{ url_for('profile', user_id=user.id)}}">
+                test
+            </a>
+        {% endfor %}
+    </div>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
@@ -45,14 +52,12 @@
 
     {% if current_user.is_authenticated %}
 
-    
-
     <script>
         const profile2 = document.querySelector(".profile");
 
         profile2.addEventListener('click', ()=> {
             console.log("settings")
-            window.location.href = "{{ url_for('settings') }}"
+            window.location.href = "{{ url_for('profile', user_id=current_user.id) }}"
         })
     </script>
     

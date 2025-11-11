@@ -46,7 +46,8 @@ def load_user(user_id):
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    users = Users.query.all()
+    return render_template("index.html", users=users)
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
@@ -97,10 +98,15 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
+@app.route('/profile/<int:user_id>', methods=['GET', 'POST'])
+def profile(user_id):
+    user = Users.query.filter_by(id=user_id).first_or_404()
+    if request.method == 'GET':
+        return render_template('profile.html', user=user)
+
 @app.route('/settings', methods=['GET', 'POST'])
 def settings():
-    if request.method == 'GET':
-        return render_template('settings.html')
+    pass
 
 # Run
 

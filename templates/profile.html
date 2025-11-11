@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kilogram - User Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}">
+    <link rel="icon" href="../static/burg.png">
+</head>
+<body>
+    <nav class="nv">
+        <div class="all">
+
+
+            <div class="left">
+            </div>
+
+
+            <div class="center">
+                <a href="#" class="anc fe">Feed</a>
+                <a href="#" class="anc">Categories</a>
+                <a href="#" class="anc">List</a>
+            </div>
+
+
+            <div class="right">
+                <img src="../static/icon.png" class="profile">
+            </div>
+
+
+        </div>
+    </nav>
+
+    {% if current_user.id == user.id %}
+
+    <div class="topRight">
+        <img src="../static/Settings-icon-symbol-vector.png" alt="Settings" class="settings">
+    </div>
+
+    {% endif %}
+
+    <div class="container">
+        <div class="top">
+            <img src="{{ current_user.pfp }}" alt="Profile Picture" class="pfp">
+            <h1 class="profileName">{{user.username}}</h1>
+        </div>
+        <div class="stats">
+            <h1 class="following stat">{{user.following}}</h1>
+            <h1 class="followers stat">{{user.followers}}</h1>
+            <h1 class="likes stat">{{user.likes}}</h1>
+        </div>
+        <div class="labels">
+            <h1 class="following stat">Following</h1>
+            <h1 class="followers stat">Followers</h1>
+            <h1 class="likes stat">Likes</h1>
+        </div>
+        <div class="posts">
+        </div>
+    </div>
+
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <script>
+        const feed = document.querySelector('.fe');
+        const settings = document.querySelector('.settings');
+
+        if (settings) {
+            settings.addEventListener('click', ()=> {
+                window.location.href = "{{ url_for('settings') }}"
+            })
+        }
+
+
+        feed.addEventListener('click', ()=> {
+            window.location.href = '{{ url_for("home") }}'
+        })
+    </script>
+</body>
+</html>
