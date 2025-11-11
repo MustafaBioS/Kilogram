@@ -106,7 +106,8 @@ def profile(user_id):
 
 @app.route('/settings', methods=['GET', 'POST'])
 def settings():
-    pass
+    if request.method == 'GET':
+        return render_template('settings.html')
 
 # Run
 

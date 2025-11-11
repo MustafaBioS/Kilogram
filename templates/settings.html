@@ -4,8 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kilogram - User Settings</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}">
+    <link rel="icon" href="../static/burg.png">
 </head>
 <body>
-    
+        <nav class="nv">
+        <div class="all">
+
+
+            <div class="left">
+            </div>
+
+
+            <div class="center">
+                <a href="#" class="anc fe">Feed</a>
+                <a href="#" class="anc">Categories</a>
+                <a href="#" class="anc">List</a>
+            </div>
+
+
+            <div class="right">
+                <img src="../static/icon.png" class="profile">
+            </div>
+
+
+        </div>
+    </nav>
+
+    <div class="tLeft">
+        <h1 class="forward">></h1>
+    </div>
+
+    <div class="sideCon">
+        <nav class="sidebar">
+            <h1 class="back"><</h1>
+            <h1 class="setTitle">Settings</h1>
+            <div class="btns">
+                <button class="setProfile set">Profile</button>
+                <button class="setSec set">Security</button>
+                <button class="setAcc set">Account</button>
+            </div>
+
+        </nav>
+    </div>
+
+
+    <script>
+        const back = document.querySelector('.back');
+        const sideCon = document.querySelector('.sideCon');
+        const sidebar = document.querySelector('.sidebar');
+        const forward = document.querySelector('.forward');
+
+        forward.addEventListener('click', ()=> {
+            forward.style.display = 'none';
+            sidebar.classList.add('open');
+        })
+
+        back.addEventListener('click', ()=> {
+            sidebar.classList.remove('open');
+            forward.style.display = 'block'
+        })
+
+        document.addEventListener('click', (e)=> {
+            if (forward.style.display == 'none' && !sidebar.contains(e.target) && !forward.contains(e.target)) {
+                sidebar.classList.remove('open');
+                forward.style.display = 'block'
+                console.log("done")
+            }
+        })
+
+    </script>
 </body>
 </html>
