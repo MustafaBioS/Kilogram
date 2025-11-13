@@ -78,6 +78,7 @@ html body {
 }
 
 .feed {
+    font-weight: 600;
     text-decoration: underline;
 }
 

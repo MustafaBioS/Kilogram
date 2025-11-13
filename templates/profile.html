@@ -55,6 +55,11 @@
             <h1 class="likes stat">Likes</h1>
         </div>
         <div class="posts">
+            {% if posts %}
+                {{ user.posts }}
+            {% else %}
+                <h1 class="noPost">No Posts Available</h1>
+            {% endif %}
         </div>
     </div>
 

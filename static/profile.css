@@ -137,6 +137,8 @@ html body {
 .settings {
     height: 42.5px;
     transition: all 0.3s ease;
+    user-select: none;
+    -webkit-user-drag: none;
 }
 
 .settings:hover {
@@ -246,4 +248,166 @@ html body {
 .forward:hover {
     cursor: pointer;
     opacity: 0.6;
+}
+
+.posts {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.allSets {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 78px);
+    width: 100%;
+}
+
+.sb {
+    height: 700px;
+    width: 1000px;
+    background-color: #FF7043;
+    border-radius: 35px;
+    border: 2px solid black;
+    z-index: 0;
+}
+
+.secBox {
+    display: none;
+}
+
+.accBox {
+    display: none;
+}
+
+.sbTitle {
+    font-size: 60px;
+    color: white;
+    text-align: center;
+}
+
+.usern {
+    margin-left: 82.5px;
+    font-size: 35px;
+    color: white;
+    font-weight: 900;
+}
+
+.setPfp {
+    border-radius: 25px;
+    margin-left: 75px;
+    border: 1px solid black;
+}
+
+.setPfp:hover > .overlay {
+    display: block;
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.centerSet {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 50%;
+    flex-direction: column;
+}
+
+.rowed {
+    display: flex;
+    flex-direction: row;
+}
+
+.setLb {
+    font-size: 20px;
+    color: white;
+}
+
+.image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lbl {
+    position: absolute;
+    text-align: center;
+    color: black;
+    font-size: 22px;
+    margin-left: 72px;
+    opacity: 0;
+    z-index: 15000px;
+    transition: all 0.3s ease;
+}
+
+.overlay {
+    background-color: black;
+    height: 241px;
+    width: 240px;
+    z-index: 1000px;
+    position: absolute;
+    margin-top: -241px;
+    border-radius: 25px;
+    margin-left: 75px;
+    opacity: 0.1;
+    transition: all 0.3s ease;
+}
+
+.overlay:hover {
+    opacity: 0.4;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+.centerSet {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32vh;
+    width: 100%;
+}
+
+.setLb {
+    margin-right: 88px;
+    margin-bottom: 5px;
+    color: white;
+    font-size: 18px;
+}
+
+.userInp {
+    height: 27px;
+    width: 230px;
+    border-radius: 12px;
+    outline: none;
+    border: 1px solid black;
+    padding-left: 10px;
+    font-size: 17px;
+}
+
+.passLb {
+    margin-left: -65px;
+    margin-top: 20px;
+}
+
+.change {
+    height: 40px;
+    width: 175px;
+    border-radius: 12px;
+    outline: none;
+    border: 1px solid black;
+    font-size: 17px;
+    margin-top: 30px;
+    transition: all 0.3s ease;
+}
+
+.change:hover {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    transform: translateY(-8px);
 }

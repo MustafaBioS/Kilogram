@@ -48,12 +48,54 @@
         </nav>
     </div>
 
+    <!-- Profile Settings -->
+
+    <div class="allSets">
+        <div class="profileBox sb">
+            <h1 class="sbTitle">Profile Settings</h1>
+            <div class="rowed">
+                <div class="leftSet">
+                    <span class="image">
+                        <img src="{{ current_user.pfp }}" class="setPfp" alt="User PFP">
+                        <label class="lbl">Change Profile</label>
+                    </span>
+                    <div class="overlay"></div>
+                    <h1 class="usern">{{current_user.username}}</h1>
+                </div>
+                <form class="centerSet">
+                    <label class="setLb">Change Username</label>
+                    <input type="text" class="userInp changeuser" minlength="6" maxlength="26" value="{{ current_user.username }}" required >
+                    <label class="setLb passLb">Password</label>
+                    <input type="password" class="userInp passInp" name="password" placeholder="Password" minlength="8" maxlength="28" required>
+                    <input type="submit" value="Change Username" class="change">
+                </form>
+            </div>
+        </div>
+
+
+        <div class="secBox sb"></div>
+        <div class="accBox sb"></div>
+    </div>
 
     <script>
         const back = document.querySelector('.back');
         const sideCon = document.querySelector('.sideCon');
         const sidebar = document.querySelector('.sidebar');
         const forward = document.querySelector('.forward');
+        const overlay = document.querySelector('.overlay');
+        const lbl = document.querySelector('.lbl');
+
+        overlay.addEventListener('mouseenter', ()=> {
+            lbl.style.opacity = 1;
+        })
+
+        overlay.addEventListener('mouseleave', ()=> {
+            lbl.style.opacity = 0;
+        })
+
+        overlay.addEventListener('click', (e)=> {
+            e.stopPropagation()
+        })
 
         forward.addEventListener('click', ()=> {
             forward.style.display = 'none';

@@ -37,6 +37,17 @@ class Users(UserMixin, db.Model):
     likes = db.Column(db.Integer, nullable=False, default=0)
     pfp = db.Column(db.String(64), nullable=False, default='../static/pfp/pfp.png')
 
+class Posts(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    title = db.Column(db.String(64), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    image = db.Column(db.String(64), nullable=True)
+    likes = db.Column(db.Integer, default=0)
+    timestamp = db.Column(db.DateTime, default=db.func.now())
+
+    user = db.relationship('Users', backref=db.backref('posts', lazy=True))
+
 
 # Routes
 
