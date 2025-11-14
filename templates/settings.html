@@ -92,8 +92,16 @@
                 <button class="logoutBtn accBtn">Logout</button>
                 <button class="delBtn accBtn">Delete</button>
             </div>
+        </div>
+        <div class="deleteModalCon">
+            <div class="deleteModal">
+                <h1 class="sbTitle">Are You Sure?</h1>
+                <button class="modBtn yes">Yes</button>
+                <button class="modBtn no">No</button>
+            </div>
 
         </div>
+
     </div>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -125,19 +133,37 @@
         const accBox = document.querySelector('.accBox');
         const logout = document.querySelector('.logoutBtn');
         const del = document.querySelector('.delBtn');
+        const delCon = document.querySelector('.deleteModalCon');
+        const delMod = document.querySelector('.deleteModal');
+        const yes = document.querySelector('.yes');
+        const no = document.querySelector('.no');
 
+        yes.addEventListener('click', ()=> {
+            window.location.href = '{{ url_for("delete") }}';
+        })
+
+        no.addEventListener('click', ()=> {
+            delCon.style.display = 'none';
+        })
 
         del.addEventListener('click', ()=> {
-            window.location.href = '{{ url_for("delete") }}'
+            delCon.style.display = 'flex';
+        })
+
+        document.addEventListener('click', (e)=> {
+            if (delCon.style.display == 'flex' && !delMod.contains(e.target) && !del.contains(e.target)) {
+                delCon.style.display = 'none';
+            }
         })
 
         logout.addEventListener('click', ()=> {
-            window.location.href = '{{ url_for("logout")}}'
+            window.location.href = '{{ url_for("logout")}}';
         })
 
         setProfile.classList.add('clicked');
         profileBox.style.display = 'none';
         accBox.style.display = 'flex';
+        delCon.style.display = 'none';
 
         setProfile.addEventListener('click', ()=> {
             setProfile.classList.add("clicked");
@@ -179,7 +205,7 @@
 
         profile2.addEventListener('click', ()=> {
             console.log("settings")
-            window.location.href = "{{ url_for('profile', user_id=current_user.id) }}"
+            window.location.href = "{{ url_for('profile', user_id=current_user.id) }}";
         })
 
         overlay.addEventListener('mouseenter', ()=> {
@@ -191,7 +217,7 @@
         })
 
         overlay.addEventListener('click', (e)=> {
-            e.stopPropagation()
+            e.stopPropagation();
         })
 
         forward.addEventListener('click', ()=> {
@@ -201,14 +227,14 @@
 
         back.addEventListener('click', ()=> {
             sidebar.classList.remove('open');
-            forward.style.display = 'block'
+            forward.style.display = 'block';
         })
 
         document.addEventListener('click', (e)=> {
             if (forward.style.display == 'none' && !sidebar.contains(e.target) && !forward.contains(e.target)) {
                 sidebar.classList.remove('open');
-                forward.style.display = 'block'
-                console.log("done")
+                forward.style.display = 'block';
+                console.log("done");
             }
         })
 
