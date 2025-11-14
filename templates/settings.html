@@ -74,9 +74,37 @@
         </div>
 
 
-        <div class="secBox sb"></div>
-        <div class="accBox sb"></div>
+        <div class="secBox sb">
+            <h1 class="sbTitle">Security Settings</h1>
+            <form class="secForm" action="{{ url_for('settings') }}" method="post">
+                <label class="plbl tplbl">Current Password</label>
+                <input type="password" class="inp password signpass" placeholder="Current Password" name="currentpass" minlength="8" maxlength="28" required>
+                <label class="plbl">New Password</label>
+                <input type="password" class="inp password signpass" placeholder="New Password" name="newpass" minlength="8" maxlength="28" required>
+                <input type="submit" class="sbm" value="Change Password">
+            </form>
+        </div>
+
+
+        <div class="accBox sb">
+            <h1 class="sbTitle">Account Settings</h1>
+            <div class="accBtns">
+                <button class="logoutBtn accBtn">Logout</button>
+                <button class="delBtn accBtn">Delete</button>
+            </div>
+
+        </div>
     </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
 
     <script>
         const back = document.querySelector('.back');
@@ -95,8 +123,21 @@
         const secBox = document.querySelector('.secBox');
         const setAcc = document.querySelector('.setAcc');
         const accBox = document.querySelector('.accBox');
+        const logout = document.querySelector('.logoutBtn');
+        const del = document.querySelector('.delBtn');
+
+
+        del.addEventListener('click', ()=> {
+            window.location.href = '{{ url_for("delete") }}'
+        })
+
+        logout.addEventListener('click', ()=> {
+            window.location.href = '{{ url_for("logout")}}'
+        })
 
         setProfile.classList.add('clicked');
+        profileBox.style.display = 'none';
+        accBox.style.display = 'flex';
 
         setProfile.addEventListener('click', ()=> {
             setProfile.classList.add("clicked");

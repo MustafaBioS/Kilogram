@@ -421,3 +421,99 @@ html body {
     cursor: pointer;
     transform: translateY(-8px);
 }
+
+.secBox {
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.plbl {
+    color: white;
+    font-size: 20px;
+    margin-top: 15px;
+}
+
+.tplbl {
+    margin-top: 50px;
+}
+
+.inp {
+    height: 30px;
+    width: 200px;
+    border-radius: 12px;
+    outline: none;
+    border: 1px solid black;
+    padding-left: 10px;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.sbm {
+    margin-top: 20px;
+    height: 40px;
+    width: 175px;
+    border-radius: 15px;
+    font-size: 18px;
+    outline: none;
+    border: 1px solid black;
+    transition: all 0.3s ease;
+}
+
+.sbm:hover {
+    background-color: black;
+    cursor: pointer;
+    color: white;
+    transform: translateY(-6px);
+}
+
+.secForm {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+}
+
+.accBox {
+    align-items: center;
+    flex-direction: column;
+}
+
+.accBtn {
+    height: 50px;
+    width: 200px;
+    border-radius: 12px;
+    margin-top: 15px;
+    font-size: 20px;
+    outline: none;
+    border: 1px solid black;
+    transition: all 0.3s ease;
+}
+
+.logoutBtn:hover {
+    background-color: black;
+    color: white;
+    transform: translateY(-6px);
+    cursor: pointer;
+}
+
+.accBtns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50%;
+    width: 100%;
+    gap: 50px;
+}
+
+.delBtn {
+    transition: all 0.3s ease;
+}
+
+.delBtn:hover {
+    background-color: rgb(91, 4, 4);
+    color: white;
+    transform: translateY(-6px);
+    cursor: pointer;
+}

@@ -2,7 +2,7 @@ from flask import Flask, flash, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
-from flask_login import UserMixin, current_user, LoginManager, login_user, logout_user
+from flask_login import UserMixin, current_user, LoginManager, login_required, login_user, logout_user
 from dotenv import load_dotenv
 import os
 
@@ -105,17 +105,20 @@ def login():
                 flash("Incorrect Credentials", 'fail')
                 return redirect(url_for('login'))
 @app.route("/logout")
+@login_required
 def logout():
     logout_user()
     return redirect(url_for('home'))
 
 @app.route('/profile/<int:user_id>', methods=['GET', 'POST'])
+@login_required
 def profile(user_id):
     user = Users.query.filter_by(id=user_id).first_or_404()
     if request.method == 'GET':
         return render_template('profile.html', user=user)
 
 @app.route('/settings', methods=['GET', 'POST'])
+@login_required
 def settings():
     if request.method == 'GET':
         return render_template('settings.html')
@@ -125,15 +128,19 @@ def settings():
 
         image = request.files.get('pfp')
 
+        current_pass = request.form.get('currentpass')
+
+        new_pass = request.form.get('newpass')
+
         if username and password:
-                if bcrypt.check_password_hash(current_user.password, password):
-                    current_user.username = username
-                    db.session.commit()
-                    flash("Username Updated Successfully", 'success')
-                    return redirect(url_for('settings'))
-                else:
-                    flash("Incorrect Password", 'fail')
-                    return redirect(url_for('settings'))
+            if bcrypt.check_password_hash(current_user.password, password):
+                current_user.username = username
+                db.session.commit()
+                flash("Username Updated Successfully", 'success')
+                return redirect(url_for('settings'))
+            else:
+                flash("Incorrect Password", 'fail')
+                return redirect(url_for('settings'))
     
         if image:
             filename = image.filename
@@ -145,9 +152,27 @@ def settings():
 
             flash('Profile Updated', 'success')
             return redirect(url_for('settings'))
-        else:
-            flash("No Image Uploaded", 'fail')
-            return redirect(url_for('settings'))
+
+
+        if current_pass and new_pass:
+            if bcrypt.check_password_hash(current_user.password, current_pass):
+                new_hash = bcrypt.generate_password_hash(new_pass).decode('utf-8')
+                current_user.password = new_hash
+                db.session.commit()
+                flash("Password Changed Successfully", 'success')
+                return redirect(url_for('settings'))
+            else:
+                flash("Incorrect Password", 'fail')
+                return redirect(url_for('settings'))
+        
+@app.route('/delete')
+@login_required
+def delete():
+    user = Users.query.filter_by(id=current_user.id).first()
+    db.session.delete(user)
+    db.session.commit()
+    flash("Account Deleted Successfully", 'fail')
+    return redirect(url_for('home'))
 
 # Run
 

@@ -26,9 +26,9 @@
                 <h1 class="logtitle">Login</h1>
                 <form class="inpCon leftinp" action="{{ url_for('login') }}" method="post">
                     <label class="loguserlb userlb lb">Username</label>
-                    <input type="text" class="inp username loguser" name="loguser" minlength="6" maxlength="26" required>
+                    <input type="text" class="inp username loguser" name="loguser" placeholder="Username" minlength="6" maxlength="26" required>
                     <label class="logpasslb passlb lb">Password</label>
-                    <input type="password" class="inp password logpass" name="logpass" minlength="8" maxlength="28" required>
+                    <input type="password" class="inp password logpass" name="logpass" placeholder="Password" minlength="8" maxlength="28" required>
                     <input type="submit" class="submit leftsub" value="Login">
                 </form>
 
