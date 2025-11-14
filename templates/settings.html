@@ -55,16 +55,17 @@
             <h1 class="sbTitle">Profile Settings</h1>
             <div class="rowed">
                 <div class="leftSet">
-                    <span class="image">
+                    <form class="image" action="{{ url_for('settings')}}" method="post" enctype="multipart/form-data">
+                        <input type="file" class="fileInput" name="pfp" accept="image/*" hidden>
                         <img src="{{ current_user.pfp }}" class="setPfp" alt="User PFP">
                         <label class="lbl">Change Profile</label>
-                    </span>
+                    </form>
                     <div class="overlay"></div>
                     <h1 class="usern">{{current_user.username}}</h1>
                 </div>
-                <form class="centerSet">
+                <form class="centerSet" action="{{ url_for('settings') }}" method="post">
                     <label class="setLb">Change Username</label>
-                    <input type="text" class="userInp changeuser" minlength="6" maxlength="26" value="{{ current_user.username }}" required >
+                    <input type="text" class="userInp changeuser" name="username" minlength="6" maxlength="20" value="{{ current_user.username }}" required >
                     <label class="setLb passLb">Password</label>
                     <input type="password" class="userInp passInp" name="password" placeholder="Password" minlength="8" maxlength="28" required>
                     <input type="submit" value="Change Username" class="change">
@@ -84,6 +85,61 @@
         const forward = document.querySelector('.forward');
         const overlay = document.querySelector('.overlay');
         const lbl = document.querySelector('.lbl');
+        const profile2 = document.querySelector(".profile");
+        const pfp = document.querySelector('.setPfp');
+        const file = document.querySelector('.fileInput');
+        const fileForm = document.querySelector('.image');
+        const setProfile = document.querySelector('.setProfile');
+        const profileBox = document.querySelector('.profileBox');
+        const setSec = document.querySelector('.setSec');
+        const secBox = document.querySelector('.secBox');
+        const setAcc = document.querySelector('.setAcc');
+        const accBox = document.querySelector('.accBox');
+
+        setProfile.classList.add('clicked');
+
+        setProfile.addEventListener('click', ()=> {
+            setProfile.classList.add("clicked");
+            setSec.classList.remove('clicked');
+            setAcc.classList.remove('clicked');
+
+            profileBox.style.display = 'block';
+            secBox.style.display = 'none';
+            accBox.style.display = 'none';
+        })
+
+        setSec.addEventListener('click', ()=> {
+            setProfile.classList.remove("clicked");
+            setSec.classList.add('clicked');
+            setAcc.classList.remove('clicked');
+
+            profileBox.style.display = 'none';
+            secBox.style.display = 'flex';
+            accBox.style.display = 'none';
+        })
+
+        setAcc.addEventListener('click', ()=> {
+            setProfile.classList.remove("clicked");
+            setSec.classList.remove('clicked');
+            setAcc.classList.add('clicked');
+
+            profileBox.style.display = 'none';
+            secBox.style.display = 'none';
+            accBox.style.display = 'flex';
+        })
+
+        overlay.addEventListener('click', ()=> {
+            file.click();
+        })
+
+        file.onchange = ()=> {
+            fileForm.submit();
+        }
+
+        profile2.addEventListener('click', ()=> {
+            console.log("settings")
+            window.location.href = "{{ url_for('profile', user_id=current_user.id) }}"
+        })
 
         overlay.addEventListener('mouseenter', ()=> {
             lbl.style.opacity = 1;

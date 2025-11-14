@@ -204,6 +204,7 @@ html body {
     border: 1px solid black;
     font-size: 20px;
     z-index: 5;
+    user-select: none;
     transition: all 0.3s ease;
 }
 
@@ -291,15 +292,18 @@ html body {
 
 .usern {
     margin-left: 82.5px;
-    font-size: 35px;
+    font-size: 28px;
     color: white;
     font-weight: 900;
+    position: absolute;
+    user-select: none;
 }
 
 .setPfp {
     border-radius: 25px;
     margin-left: 75px;
     border: 1px solid black;
+    user-select: none;
 }
 
 .setPfp:hover > .overlay {
@@ -337,11 +341,17 @@ html body {
     position: absolute;
     text-align: center;
     color: black;
-    font-size: 22px;
+    font-size: 25px;
     margin-left: 72px;
     opacity: 0;
     z-index: 15000px;
     transition: all 0.3s ease;
+    user-select: none;
+}
+
+.clicked {
+    background-color: black;
+    color: white;
 }
 
 .overlay {

@@ -119,6 +119,35 @@ def profile(user_id):
 def settings():
     if request.method == 'GET':
         return render_template('settings.html')
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+
+        image = request.files.get('pfp')
+
+        if username and password:
+                if bcrypt.check_password_hash(current_user.password, password):
+                    current_user.username = username
+                    db.session.commit()
+                    flash("Username Updated Successfully", 'success')
+                    return redirect(url_for('settings'))
+                else:
+                    flash("Incorrect Password", 'fail')
+                    return redirect(url_for('settings'))
+    
+        if image:
+            filename = image.filename
+            path = f'static/pfp/{filename}'
+            image.save(path)
+
+            current_user.pfp = f'../static/pfp/{filename}'
+            db.session.commit()
+
+            flash('Profile Updated', 'success')
+            return redirect(url_for('settings'))
+        else:
+            flash("No Image Uploaded", 'fail')
+            return redirect(url_for('settings'))
 
 # Run
 
