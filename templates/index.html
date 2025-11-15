@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="icon" href="../static/burg.png">
 </head>
-<body>
+<body style="overflow-y: hidden;">
     
     <nav class="nv">
         <div class="all">
@@ -32,12 +32,22 @@
         </div>
     </nav>
 
-    <div class="feed">
+    <div class="feedCon">
+        <button class="new">Create Post</button>
         {% for user in users %}
             <a href="{{ url_for('profile', user_id=user.id)}}">
                 test
             </a>
         {% endfor %}
+    </div>
+
+    <div class="createCon">
+        <div class="createOverlay">
+            <form class="create">
+                <input type="text" name="postTitle" class="postTitle" placeholder="Title" maxlength="20">
+                <textarea type="text" class="postDesc" placeholder="What's on your mind, {{ current_user.username }}?"></textarea>
+            </form>
+        </div>
     </div>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -49,6 +59,48 @@
         {% endfor %}
     {% endif %}
     {% endwith %}
+
+    <script>
+        const n = document.querySelector('.new');
+        const create = document.querySelector('.create');
+        const createCon = document.querySelector('.createCon');
+        const overlay = document.querySelector('.createOverlay');
+        const title = document.querySelector('.postTitle');
+        const desc = document.querySelector('.postDesc');
+        const feedCon = document.querySelector('.feedCon');
+        var on = false
+
+        overlay.classList.remove('showOver');
+        create.classList.remove('show');
+
+        n.addEventListener('click', ()=> {
+            if (on == false) {
+                overlay.classList.add('showOver');
+                create.classList.add('show');
+                on = true;
+            }
+            
+            else if (on == true){
+                overlay.classList.remove('showOver');
+                create.classList.remove('show');
+                console.log('removed')
+                on = false;
+            };
+        });
+
+        document.addEventListener('click', (e)=> {
+            if (create.classList.contains('show') && !n.contains(e.target) && !title.contains(e.target) && !desc.contains(e.target)) {
+                overlay.classList.remove('showOver');
+                create.classList.remove('show');
+                on = false;
+            }
+        })
+
+        create.addEventListener('click', (e)=> {
+            e.stopPropagation();
+        })
+
+    </script>
 
     {% if current_user.is_authenticated %}
 
