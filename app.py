@@ -55,10 +55,27 @@ class Posts(db.Model):
 def load_user(user_id):
     return Users.query.get(int(user_id))
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def home():
     users = Users.query.all()
-    return render_template("index.html", users=users)
+    if request.method == 'GET':
+        return render_template("index.html", users=users)
+    if request.method == 'POST':
+        title = request.form.get('postTitle')
+        desc = request.form.get('postDesc')
+        image = request.files.get('img')
+
+        filename = None
+        if image:
+            filename = image.filename
+            path = f'static/pfp/{filename}'
+            image.save(path)
+
+        new_post = Posts(user_id=current_user.id, title=title, content=desc, image=filename)
+        db.session.add(new_post)
+        db.session.commit()
+        flash("Successfully Created Post", 'success')
+        return redirect(url_for('home'))
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
@@ -173,6 +190,16 @@ def delete():
     db.session.commit()
     flash("Account Deleted Successfully", 'fail')
     return redirect(url_for('home'))
+
+
+@app.route('/delete/post/<int:post_id>')
+def delete_post(post_id):
+    post = Posts.query.filter_by(id=post_id).first()
+    db.session.delete(post)
+    db.session.commit()
+    flash("post deleted")
+    return redirect(url_for('home'))
+
 
 # Run
 

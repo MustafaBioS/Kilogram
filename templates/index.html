@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="icon" href="../static/burg.png">
 </head>
-<body style="overflow-y: hidden;">
+<body>
     
     <nav class="nv">
         <div class="all">
@@ -35,17 +35,34 @@
     <div class="feedCon">
         <button class="new">Create Post</button>
         {% for user in users %}
-            <a href="{{ url_for('profile', user_id=user.id)}}">
-                test
-            </a>
+            {% for post in user.posts %}
+                <div class="postBox">
+                    <div class="topdir">
+                        <img src="{{ user.pfp }}" alt="Author Pfp" class="authorpfp" data-profile-url="{{ url_for('profile', user_id=user.id) }}">
+                        <h1 class="pTitle">{{ post.title }}</h1>
+                    </div>
+                    <p class="pDesc">{{ post.content }}</p>
+                    {% if post.image %}
+                        <img src="{{ post.filename }}" alt="Post Image" class="postImg">
+                    {% endif %}
+                </div>
+            {% endfor %}
         {% endfor %}
     </div>
 
     <div class="createCon">
         <div class="createOverlay">
-            <form class="create">
-                <input type="text" name="postTitle" class="postTitle" placeholder="Title" maxlength="20">
-                <textarea type="text" class="postDesc" placeholder="What's on your mind, {{ current_user.username }}?"></textarea>
+            <form class="create" action="{{ url_for('home') }}" method="post" >
+                <input type="text" name="postTitle" class="postTitle" placeholder="Title" maxlength="20" required>
+                <textarea type="text" class="postDesc" name="postDesc" maxlength="1000" placeholder="What's on your mind, {{ current_user.username }}?" required></textarea>
+                <div class="imageCon">
+                    <input type="file" accept="image/*" name="img" class="imghid" hidden>
+                    <div class="addImage">Add Image</div>
+                </div>
+                <div class="submitCon">
+                    <input type="submit" value="➤" class="send">
+                </div>
+                
             </form>
         </div>
     </div>
@@ -68,25 +85,29 @@
         const title = document.querySelector('.postTitle');
         const desc = document.querySelector('.postDesc');
         const feedCon = document.querySelector('.feedCon');
+        const img = document.querySelector('.imghid');
+        const imgdiv = document.querySelector('.addImage');
+        const authorpfp = document.querySelectorAll('.authorpfp');
+        const send = document.querySelector('.send');
         var on = false
 
+        desc.addEventListener('input', ()=> {
+            send.style.opacity = 1;
+        });
+
+        authorpfp.forEach(img => {
+            img.addEventListener('click', () => {
+                window.location.href = img.dataset.profileUrl;
+            });
+
+        });
+
+        imgdiv.addEventListener('click', ()=> {
+            img.click();
+        })
+        
         overlay.classList.remove('showOver');
         create.classList.remove('show');
-
-        n.addEventListener('click', ()=> {
-            if (on == false) {
-                overlay.classList.add('showOver');
-                create.classList.add('show');
-                on = true;
-            }
-            
-            else if (on == true){
-                overlay.classList.remove('showOver');
-                create.classList.remove('show');
-                console.log('removed')
-                on = false;
-            };
-        });
 
         document.addEventListener('click', (e)=> {
             if (create.classList.contains('show') && !n.contains(e.target) && !title.contains(e.target) && !desc.contains(e.target)) {
@@ -106,6 +127,22 @@
 
     <script>
         const profile2 = document.querySelector(".profile");
+        const ne = document.querySelector('.new');
+
+        ne.addEventListener('click', ()=> {
+            if (on == false) {
+                overlay.classList.add('showOver');
+                create.classList.add('show');
+                on = true;
+            }
+            
+            else if (on == true){
+                overlay.classList.remove('showOver');
+                create.classList.remove('show');
+                console.log('removed')
+                on = false;
+            };
+        });
 
         profile2.addEventListener('click', ()=> {
             console.log("settings")
@@ -117,6 +154,11 @@
 
     <script>
         const profile = document.querySelector(".profile");
+        const nee = document.querySelector('.new');
+
+        nee.addEventListener('click', ()=> { 
+            window.location.href = '{{ url_for("login") }}'
+        })
 
         profile.addEventListener('click', ()=> {
             window.location.href = "{{ url_for('login') }}"

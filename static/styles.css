@@ -234,7 +234,6 @@ html body {
 
 .createCon {
     display: flex;
-    height: 100%;
     width: 100%;
     position: absolute;
 }
@@ -290,6 +289,7 @@ html body {
     z-index: 19;
     text-align: center;
     font-size: 25px;
+    color: black;
 }
 
 .postDesc {
@@ -300,4 +300,99 @@ html body {
     border-bottom-right-radius: 25px;
     font-size: 25px;
     transition: all 0.3s ease;
+    color: black;
+}
+
+.imageCon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.addImage {
+    height: 45px;
+    width: 150px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    position: absolute;
+    z-index: 19;
+    margin-bottom: 225px;
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+.addImage:hover {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
+
+.postBox {
+    height: auto;
+    width: 650px;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.pTitle {
+    border-bottom: 1px solid black;
+}
+
+.pDesc {
+    word-break: break-word;
+}
+
+.topdir {
+    display: flex;
+    align-items: center;
+    margin-right: 100px;
+}
+
+.authorpfp {
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    transition: all 0.3s ease;
+    border: 1px solid black;
+    margin-right: 50px;
+}
+
+.authorpfp:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+.submitCon {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    margin-top: -30px;
+    margin-right: 100px;
+}
+
+.send {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    font-size: 50px;
+    z-index: 51314;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.send:hover {
+    opacity: 0.6;
+    cursor: pointer;
 }

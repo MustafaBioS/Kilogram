@@ -137,6 +137,11 @@
         const delMod = document.querySelector('.deleteModal');
         const yes = document.querySelector('.yes');
         const no = document.querySelector('.no');
+        const feed = document.querySelector('.fe');
+
+        feed.addEventListener('click', ()=> {
+            window.location.href = '{{ url_for("home") }}'
+        })
 
         yes.addEventListener('click', ()=> {
             window.location.href = '{{ url_for("delete") }}';
@@ -161,8 +166,6 @@
         })
 
         setProfile.classList.add('clicked');
-        profileBox.style.display = 'none';
-        accBox.style.display = 'flex';
         delCon.style.display = 'none';
 
         setProfile.addEventListener('click', ()=> {
