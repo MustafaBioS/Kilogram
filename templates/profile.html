@@ -56,7 +56,11 @@
         </div>
         <div class="posts">
             {% if posts %}
-                {{ user.posts }}
+                {% for user in users %}
+                    {% for post in user.posts %}
+                        {{ user.posts }}
+                    {% endfor %}
+                {% endfor %}
             {% else %}
                 <h1 class="noPost">No Posts Available</h1>
             {% endif %}
