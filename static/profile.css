@@ -252,9 +252,6 @@ html body {
 }
 
 .posts {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     height: 100%;
     width: 100%;
 }
@@ -570,4 +567,27 @@ html body {
     color: white;
     transform: translateY(-6px);
     cursor: pointer;
+}
+
+.postImg {
+    transition: all 0.3s ease;
+}
+
+.postImg:hover {
+    opacity: 0.8;
+}
+
+.postBox {
+    border: 1px solid black;
+    height: 350px;
+    width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 15px;
+}
+
+.pTitle {
+    text-decoration: underline;
 }

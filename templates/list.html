@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kilogram - Shopping List</title>
+    <link rel="icon" href="../static/burg.png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='list.css')}}">
+</head>
+<body>
+
+    <nav class="nv">
+        <div class="all">
+
+
+            <div class="left">
+            </div>
+
+
+            <div class="center">
+                <a href="{{ url_for('home') }}" class="anc feed">Feed</a>
+                <a href="#" class="anc">Categories</a>
+                <a href="{{ url_for('list') }}" class="anc list">List</a>
+            </div>
+
+
+            <div class="right">
+                <img src="../static/icon.png" class="profile">
+            </div>
+
+
+        </div>
+    </nav>
+
+
+
+
+    <script>
+        
+        const profile = document.querySelector('.profile');
+
+        profile.addEventListener('click', ()=> {
+            window.location.href = '{{ url_for("profile", user_id=current_user.id) }}'
+        })
+
+    </script>
+</body>
+</html>
