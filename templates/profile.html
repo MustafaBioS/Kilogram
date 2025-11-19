@@ -17,9 +17,9 @@
 
 
             <div class="center">
-                <a href="#" class="anc fe">Feed</a>
+                <a href="{{ url_for('home') }}" class="anc feed">Feed</a>
                 <a href="#" class="anc">Categories</a>
-                <a href="#" class="anc">List</a>
+                <a href="{{ url_for('list') }}" class="anc">List</a>
             </div>
 
 
@@ -54,17 +54,28 @@
             <h1 class="followers stat">Followers</h1>
             <h1 class="likes stat">Likes</h1>
         </div>
-        <div class="posts">
-            {% if posts %}
-                {% for user in users %}
-                    {% for post in user.posts %}
-                        {{ user.posts }}
-                    {% endfor %}
+        {% if user.posts %}
+            <div class="posts" style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr; justify-items: center;">
+        {% else %}
+            <div class="posts" style="display: flex; align-items: center; justify-content: center;">
+        {% endif %}
+            {% if user.posts %}
+                {% for post in user.posts %}
+                    <div class="postBox">
+                        <h2 class="pTitle">{{ post.title }}</h2>
+                        <p>{{ post.content }}</p>
+
+                        {% if post.image %}
+                        <a href="../static/posts/{{ post.image }}" target="_blank">
+                            <img src="../static/posts/{{ post.image }}" class="postImg">
+                        </a>
+                        {% endif %}
+                    </div>
                 {% endfor %}
             {% else %}
                 <h1 class="noPost">No Posts Available</h1>
             {% endif %}
-        </div>
+    </div>
     </div>
 
 
@@ -87,7 +98,6 @@
                 window.location.href = "{{ url_for('settings') }}"
             })
         }
-
 
         feed.addEventListener('click', ()=> {
             window.location.href = '{{ url_for("home") }}'

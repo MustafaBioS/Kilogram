@@ -334,17 +334,21 @@ html body {
 
 .postBox {
     height: auto;
-    width: 650px;
+    min-width: 650px;
+    max-width: 1000px;
     border: 1px solid black;
     display: flex;
     align-items: center;
     flex-direction: column;
     border-radius: 15px;
     padding: 20px;
+    margin-top: 25px;
+    margin-bottom: 75px;
 }
 
 .pTitle {
     border-bottom: 1px solid black;
+    margin-right: 150px;
 }
 
 .pDesc {
@@ -363,12 +367,17 @@ html body {
     width: 50px;
     transition: all 0.3s ease;
     border: 1px solid black;
-    margin-right: 50px;
 }
 
 .authorpfp:hover {
     opacity: 0.6;
     cursor: pointer;
+}
+
+.authorname {
+    margin-right: 75px;
+    font-size: 20px;
+    margin-left: 15px;
 }
 
 .submitCon {
@@ -395,4 +404,14 @@ html body {
 .send:hover {
     opacity: 0.6;
     cursor: pointer;
+}
+
+.postImg {
+    height: 200px;
+    width: 200px;
+    transition: all 0.3s ease;
+}
+
+.postImg:hover {
+    opacity: 0.7;
 }

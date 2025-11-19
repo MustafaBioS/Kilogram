@@ -58,17 +58,18 @@ def load_user(user_id):
 @app.route("/", methods=['GET', 'POST'])
 def home():
     users = Users.query.all()
+    posts = Posts.query.all()
     if request.method == 'GET':
-        return render_template("index.html", users=users)
+        return render_template("index.html", users=users, posts=posts)
     if request.method == 'POST':
         title = request.form.get('postTitle')
         desc = request.form.get('postDesc')
         image = request.files.get('img')
 
         filename = None
-        if image:
+        if image and image.filename:
             filename = image.filename
-            path = f'static/pfp/{filename}'
+            path = f'static/posts/{filename}'
             image.save(path)
 
         new_post = Posts(user_id=current_user.id, title=title, content=desc, image=filename)
@@ -201,7 +202,16 @@ def delete_post(post_id):
     return redirect(url_for('home'))
 
 
+@app.route('/list', methods=['GET', 'POST'])
+@login_required
+def list():
+    if request.method == 'GET':
+        return render_template('list.html')
+    if request.method == "POST":
+        pass
+
+
 # Run
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True) 

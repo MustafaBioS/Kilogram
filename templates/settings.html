@@ -17,9 +17,9 @@
 
 
             <div class="center">
-                <a href="#" class="anc fe">Feed</a>
+                <a href="{{ url_for('home') }}" class="anc feed">Feed</a>
                 <a href="#" class="anc">Categories</a>
-                <a href="#" class="anc">List</a>
+                <a href="{{ url_for('list') }}" class="anc">List</a>
             </div>
 
 
@@ -137,7 +137,7 @@
         const delMod = document.querySelector('.deleteModal');
         const yes = document.querySelector('.yes');
         const no = document.querySelector('.no');
-        const feed = document.querySelector('.fe');
+        const feed = document.querySelector('.feed');
 
         feed.addEventListener('click', ()=> {
             window.location.href = '{{ url_for("home") }}'
