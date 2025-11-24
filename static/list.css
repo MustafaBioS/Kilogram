@@ -80,5 +80,39 @@ html body {
 .list {
     font-weight: 600;
     text-decoration: underline;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 78px);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.title {
+    font-size: 45px;
+    text-decoration: underline;
+}
+
+.butn {
+    height: 45px;
+    width: 185px;
+    border-radius: 12px;
+    font-size: 19px;
+    outline: none;
+    border: 1px solid black;
     transition: all 0.3s ease;
+}
+
+.butn:hover {
+    background-color: black;
+    color: white;
+    transform: translateY(-6px);
+    cursor: pointer;
 }
