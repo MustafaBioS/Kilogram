@@ -1,4 +1,4 @@
-from flask import Flask, flash, redirect, render_template, request, url_for
+from flask import Flask, flash, jsonify, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
@@ -36,6 +36,7 @@ class Users(UserMixin, db.Model):
     following = db.Column(db.Integer, nullable=False, default=0)
     likes = db.Column(db.Integer, nullable=False, default=0)
     pfp = db.Column(db.String(64), nullable=False, default='../static/pfp/pfp.png')
+    liked_posts = db.Column(db.String, default="")
 
 class Posts(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -48,6 +49,25 @@ class Posts(db.Model):
 
     user = db.relationship('Users', backref=db.backref('posts', lazy=True))
 
+    @property
+    def like_count(self):
+        return self.likes.count()
+
+class List(db.Model):
+
+    # To Do:
+    # Private/Public Lists (User Gets To Choose If It's Public Or Private While Making Them )
+    # Save Lists to go back to them in the future
+    # Likes and followers functionality
+
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+
+class Like(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
 
 # Routes
 
@@ -210,6 +230,12 @@ def list():
     if request.method == "POST":
         pass
 
+@app.route('/follow:<int:user_id>')
+def follow(user_id):
+    user = Users.query.filter_by(id=user_id).first()
+    user.followers += 1
+    current_user.following += 1
+    db.session.commit()
 
 # Run
 

@@ -39,6 +39,9 @@
                 <div class="postBox">
                     <div class="topdir">
                         <img src="{{ user.pfp }}" alt="Author Pfp" class="authorpfp" data-profile-url="{{ url_for('profile', user_id=user.id) }}">
+                        <div class="authorpfp overlay">
+                            <h1 class="plus">+</h1>
+                        </div>
                         <p class="authorname">{{ user.username }}</p>
                         <h1 class="pTitle">{{ post.title }}</h1>
                     </div>
@@ -92,7 +95,14 @@
         const imgdiv = document.querySelector('.addImage');
         const authorpfp = document.querySelectorAll('.authorpfp');
         const send = document.querySelector('.send');
+        const plus = document.querySelectorAll('.plus');
         var on = false
+
+        plus.forEach(pl => {
+            pl.addEventListener('click', ()=> {
+                alert('W.I.P');
+            })
+        })
 
         desc.addEventListener('input', ()=> {
             send.style.opacity = 1;
@@ -100,7 +110,7 @@
 
         authorpfp.forEach(img => {
             img.addEventListener('click', () => {
-                window.location.href = img.dataset.profileUrl;
+            window.location.href = img.dataset.profileUrl;
             });
 
         });

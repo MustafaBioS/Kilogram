@@ -415,3 +415,23 @@ html body {
 .postImg:hover {
     opacity: 0.7;
 }
+
+.overlay {
+    height: 50px;
+    width: 50px;
+    background-color: transparent;
+    position: absolute;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    user-select: none;
+    pointer-events: none;
+}
+
+.plus {
+    pointer-events: all;
+    user-select: all;
+    font-size: 27.5px;
+    color: red;
+    margin-bottom: -15px;
+}
