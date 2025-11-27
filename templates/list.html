@@ -47,7 +47,7 @@
                 <input class="listTitle" type="text" name="title" maxlength="20" placeholder="Title" required>
                 <div class="btns">
                     <label class="lbd" for="pub">Public</label>
-                    <input type="checkbox" id="pub" class="public" name="public" value="yes">
+                    <input type="checkbox" id="pub" class="public" name="public" value="yes" checked>
                     <label class="lbd" for="priv">Private</label>
                     <input type="checkbox" id="priv" class="private" name="private" value="yes">
                 </div>
@@ -56,14 +56,66 @@
         </div>
     </div>  
 
+    <div class="yourCon">
+        <div class="yourBox">
+            <h1 class="title">Your Lists</h1>
+            {% for ur in your %}
+            <div class="listBox">
+                <h1>{{ ur.title }}</h1>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="allCon">
+        <div class="allBox">
+            <h1 class="title">All Lists</h1>
+                {% for list in lists %}
+                <div class="listBox">
+                    <h1>{{ list.title }}</h1>
+                    <div class="botRight">
+                        {{ list.user.username}}
+                    </div>
+                </div>
+                {% endfor %}
+        </div>
+    </div>
+
     <script>
         
         const profile = document.querySelector('.profile');
         const create = document.querySelector('.create');
         const createCon = document.querySelector('.createCon');
         const createBox = document.querySelector('.createBox');
+        const your = document.querySelector('.your');
+        const yourCon = document.querySelector('.yourCon');
+        const yourBox = document.querySelector('.yourBox');
+        const allLists = document.querySelector('.allLists');
+        const allCon = document.querySelector('.allCon');
+        const allBox = document.querySelector('.allBox');
         const public = document.querySelector('.public');
         const private = document.querySelector('.private');
+
+
+        your.addEventListener('click', ()=> {
+            yourCon.style.display = 'flex';
+        })
+
+        document.addEventListener('click', (e)=> {
+            if (yourCon.style.display == 'flex' && !yourCon.contains(e.target) && !your.contains(e.target)) {
+                yourCon.style.display = 'none';
+            }
+        })
+
+        allLists.addEventListener('click', ()=> {
+            allCon.style.display = 'flex';
+        })
+
+        document.addEventListener('click', (e)=> {
+            if (allCon.style.display == 'flex' && !allBox.contains(e.target) && !allLists.contains(e.target)) {
+                allCon.style.display = 'none';
+            }
+        })
 
         create.addEventListener('click', ()=> {
             createCon.style.display = 'flex';
