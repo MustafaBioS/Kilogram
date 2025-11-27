@@ -3,6 +3,7 @@ html body {
     padding: 0;
     background-color: #F5F5F5;
     font-family: Arial, Helvetica, sans-serif;
+    overflow: hidden;
 }
 
 .nv {
@@ -93,6 +94,7 @@ html body {
     justify-content: center;
     flex-direction: column;
     gap: 25px;
+    position: absolute;
 }
 
 .title {
@@ -115,4 +117,101 @@ html body {
     color: white;
     transform: translateY(-6px);
     cursor: pointer;
+}
+
+.createCon {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    height: calc(100% - 78px);
+    width: 100%;
+    position: absolute;
+}
+
+.createBox {
+    height: 600px;
+    width: 800px;
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    border-radius: 25px;
+    box-shadow: 0px 2px 35px rgba(0, 0, 0, 0.8);
+    border: 2px solid black;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.titled {
+    color: rgb(0, 0, 0);
+    font-size: 50px;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.lbl {
+    font-size: 20px;
+}
+
+.listTitle {
+    height: 30px;
+    width: 225px;
+    border-radius: 12px;
+    outline: none;
+    border: 1px solid black;
+    margin-top: 5px;
+    text-align: center;
+    font-size: 20px;
+}
+
+.btns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    margin-top: 50px;
+    gap: 35px;
+}
+
+.btn {
+    height: 47.5px;
+    width: 150px;
+    font-size: 20px;
+    background-color: white;
+    border-radius: 12px;
+    outline: none;
+    border: 2px solid black;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background-color: black;
+    color: white;
+    transform: translateY(-6px);
+    cursor: pointer;
+}
+
+.btn.clicked {
+    background-color: black;
+    color: white;
+    transform: translateY(-6px);
+    cursor: pointer;
+}
+
+.createForm {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.sub {
+    margin-top: 25px;
+}
+
+.lbd {
+    font-size: 25px;
+    margin-right: -25px;
+    margin-left: 30px;
+    user-select: none;
 }
