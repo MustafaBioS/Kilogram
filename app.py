@@ -49,25 +49,17 @@ class Posts(db.Model):
 
     user = db.relationship('Users', backref=db.backref('posts', lazy=True))
 
-    @property
-    def like_count(self):
-        return self.likes.count()
-
 class List(db.Model):
 
     # To Do:
     # Private/Public Lists (User Gets To Choose If It's Public Or Private While Making Them )
     # Save Lists to go back to them in the future
-    # Likes and followers functionality
-
 
     id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(64), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    private = db.Column(db.Boolean, nullable=False)
 
-class Like(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
 
 # Routes
 
@@ -233,9 +225,23 @@ def list():
 @app.route('/follow:<int:user_id>')
 def follow(user_id):
     user = Users.query.filter_by(id=user_id).first()
-    user.followers += 1
+    user.followers += 1 
     current_user.following += 1
     db.session.commit()
+
+
+@app.route('/list/create', methods=['GET', 'POST'])
+def create():
+    title = request.form.get('title')
+    public = request.form.get('public')
+    private = request.form.get('private')
+
+
+    if public == 'yes':
+        new_list = List(title=title, private=False)
+    elif private == 'yes':
+        new_list = List(title=title, private=True)
+
 
 # Run
 

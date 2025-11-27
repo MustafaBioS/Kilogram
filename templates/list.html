@@ -35,14 +35,55 @@
 
     <div class="container">
             <button class="create butn">Create List</button>
-            <button class="view butn">View Lists</button>
+            <button class="your butn">Your Lists</button>
+            <button class="allLists butn">All Lists</button>
     </div>
 
-
+    <div class="createCon">
+        <div class="createBox">
+            <h1 class="titled">Create List</h1>
+            <label class="lbl">List Title</label>
+            <form action="{{ url_for('create') }}" method="post" class="createForm">
+                <input class="listTitle" type="text" name="title" maxlength="20" placeholder="Title" required>
+                <div class="btns">
+                    <label class="lbd" for="pub">Public</label>
+                    <input type="checkbox" id="pub" class="public" name="public" value="yes">
+                    <label class="lbd" for="priv">Private</label>
+                    <input type="checkbox" id="priv" class="private" name="private" value="yes">
+                </div>
+                <input type="submit" class="btn" style="margin-top: 30px;">
+            </form>
+        </div>
+    </div>  
 
     <script>
         
         const profile = document.querySelector('.profile');
+        const create = document.querySelector('.create');
+        const createCon = document.querySelector('.createCon');
+        const createBox = document.querySelector('.createBox');
+        const public = document.querySelector('.public');
+        const private = document.querySelector('.private');
+
+        create.addEventListener('click', ()=> {
+            createCon.style.display = 'flex';
+        })
+
+        document.addEventListener('click', (e)=> {
+            if (createCon.style.display == 'flex' && !createBox.contains(e.target) && !create.contains(e.target)) {
+                createCon.style.display = 'none';
+            }
+        })
+
+        public.addEventListener('change', ()=> {
+            public.checked = true;
+            private.checked = false;
+        })
+
+        private.addEventListener('change', ()=> {
+            private.checked = true;
+            public.checked = false;
+        })
 
         profile.addEventListener('click', ()=> {
             window.location.href = '{{ url_for("profile", user_id=current_user.id) }}'

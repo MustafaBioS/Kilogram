@@ -235,7 +235,10 @@ html body {
 .createCon {
     display: flex;
     width: 100%;
-    position: absolute;
+    height: 100%;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
 }
 
 .create {
@@ -343,7 +346,7 @@ html body {
     border-radius: 15px;
     padding: 20px;
     margin-top: 25px;
-    margin-bottom: 75px;
+    margin-bottom: 25px;
 }
 
 .pTitle {

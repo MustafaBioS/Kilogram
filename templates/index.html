@@ -40,7 +40,13 @@
                     <div class="topdir">
                         <img src="{{ user.pfp }}" alt="Author Pfp" class="authorpfp" data-profile-url="{{ url_for('profile', user_id=user.id) }}">
                         <div class="authorpfp overlay">
+                            {% if user.id == current_user.id %}
+                            
+                            {% else %}
+
                             <h1 class="plus">+</h1>
+
+                            {% endif %}
                         </div>
                         <p class="authorname">{{ user.username }}</p>
                         <h1 class="pTitle">{{ post.title }}</h1>
