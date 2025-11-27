@@ -215,3 +215,66 @@ html body {
     margin-left: 30px;
     user-select: none;
 }
+
+.allCon {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 78px);
+    width: 100%;
+}
+
+.allBox {
+    height: 600px;
+    width: 800px;
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    border-radius: 25px;
+    box-shadow: 0px 2px 35px rgba(0, 0, 0, 0.8);
+    border: 2px solid black;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.listBox {
+    height: 250px;
+    width: auto;
+    min-width: 150px;
+    border: 1px solid black;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.botRight {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    height: 100%;
+    width: 100%;
+}
+
+.yourCon {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 78px);
+    width: 100%;
+}
+
+.yourBox {
+    height: 600px;
+    width: 800px;
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    border-radius: 25px;
+    box-shadow: 0px 2px 35px rgba(0, 0, 0, 0.8);
+    border: 2px solid black;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    overflow-y: auto;
+}

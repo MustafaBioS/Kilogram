@@ -59,7 +59,7 @@ class List(db.Model):
     title = db.Column(db.String(64), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     private = db.Column(db.Boolean, nullable=False)
-
+    user = db.relationship('Users', backref='lists')
 
 # Routes
 
@@ -206,6 +206,7 @@ def delete():
 
 
 @app.route('/delete/post/<int:post_id>')
+@login_required
 def delete_post(post_id):
     post = Posts.query.filter_by(id=post_id).first()
     db.session.delete(post)
@@ -217,30 +218,28 @@ def delete_post(post_id):
 @app.route('/list', methods=['GET', 'POST'])
 @login_required
 def list():
+    lists = List.query.filter_by(private=False).all()
+    your = List.query.filter_by(user_id=current_user.id).all()
     if request.method == 'GET':
-        return render_template('list.html')
-    if request.method == "POST":
-        pass
-
-@app.route('/follow:<int:user_id>')
-def follow(user_id):
-    user = Users.query.filter_by(id=user_id).first()
-    user.followers += 1 
-    current_user.following += 1
-    db.session.commit()
+        return render_template('list.html', lists=lists, your=your)
 
 
 @app.route('/list/create', methods=['GET', 'POST'])
+@login_required
 def create():
-    title = request.form.get('title')
-    public = request.form.get('public')
-    private = request.form.get('private')
+    if request.method == 'POST':
+        title = request.form.get('title')
+        public = request.form.get('public')
+        private = request.form.get('private')
 
-
-    if public == 'yes':
-        new_list = List(title=title, private=False)
-    elif private == 'yes':
-        new_list = List(title=title, private=True)
+        if public == 'yes':
+            new_list = List(title=title, user_id=current_user.id, private=False)
+        elif private == 'yes':
+            new_list = List(title=title, user_id=current_user.id, private=True)
+        
+        db.session.add(new_list)
+        db.session.commit()
+        return redirect(url_for('list'))
 
 
 # Run
