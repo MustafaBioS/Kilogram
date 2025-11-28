@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kilogram - {{ current.title }}</title>
+    <link rel="icon" href="../static/burg.png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='list.css') }}">
+</head>
+<body>
+
+    <div class="createCont">
+        <form action="{{ url_for('view', list_id=current.id) }}" method="post" class="createBoxed">
+            <h1 class="createTitle">Add To List</h1>
+            <input type="text" name="list" class="listInp" required>
+            <input type="submit" class="btn listSub">
+        </form>
+    </div>
+
+    <div class="listCon">
+        <div class="viewList">
+            <h1 class="plus">+</h1>
+            <h1 class="viewtitle">{{ current.title }}</h1>
+            <ul>
+                {% for item in current.items %}
+                    <li>{{ item.text }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    
+<script>
+
+    const profile = document.querySelector('.profile');
+    const createCont = document.querySelector('.createCont');
+    const createBoxed = document.querySelector('.createBoxed');
+    const plus = document.querySelector('.plus');
+
+    plus.addEventListener('click', ()=> {
+        createCont.classList.add('show');
+    })
+
+    document.addEventListener('click', (e)=> {
+        if (createCont.classList.contains('show') && !createBoxed.contains(e.target) && !plus.contains(e.target)) {
+            createCont.classList.remove('show');
+        }
+    })
+
+    profile.addEventListener('click', ()=> {
+        window.location.href = '{{ url_for("profile", user_id=current_user.id) }}'
+    })
+
+</script>
+</body>
+</html>
