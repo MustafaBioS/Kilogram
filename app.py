@@ -50,16 +50,19 @@ class Posts(db.Model):
     user = db.relationship('Users', backref=db.backref('posts', lazy=True))
 
 class List(db.Model):
-
-    # To Do:
-    # Private/Public Lists (User Gets To Choose If It's Public Or Private While Making Them )
-    # Save Lists to go back to them in the future
-
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(64), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     private = db.Column(db.Boolean, nullable=False)
     user = db.relationship('Users', backref='lists')
+
+    items = db.relationship("ListItem", backref="parent", cascade="all, delete")
+
+class ListItem(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    list_id = db.Column(db.Integer, db.ForeignKey('list.id'), nullable=False)
+    text = db.Column(db.String(128), nullable=False)
+    done = db.Column(db.Boolean, default=False)
 
 # Routes
 
@@ -220,8 +223,9 @@ def delete_post(post_id):
 def list():
     lists = List.query.filter_by(private=False).all()
     your = List.query.filter_by(user_id=current_user.id).all()
+    all = List.query.all()
     if request.method == 'GET':
-        return render_template('list.html', lists=lists, your=your)
+        return render_template('list.html', lists=lists, your=your, all=all)
 
 
 @app.route('/list/create', methods=['GET', 'POST'])
@@ -240,6 +244,21 @@ def create():
         db.session.add(new_list)
         db.session.commit()
         return redirect(url_for('list'))
+
+@app.route('/list/view/<int:list_id>', methods=['GET', 'POST'])
+@login_required
+def view(list_id):
+    all = List.query.all()
+    current = List.query.get_or_404(list_id)
+    if request.method == 'GET':
+        return render_template('view.html', all=all, current=current)
+    if request.method == 'POST':
+        text = request.form.get('list')
+        item = ListItem(list_id=list_id, text=text)
+        db.session.add(item)
+        db.session.commit()
+        return redirect(url_for('view', list_id=list_id))
+
 
 
 # Run

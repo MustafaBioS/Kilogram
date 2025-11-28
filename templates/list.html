@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kilogram - Shopping List</title>
+    <title>Kilogram - Shopping Lists</title>
     <link rel="icon" href="../static/burg.png">
     <link rel="stylesheet" href="{{ url_for('static', filename='list.css')}}">
 </head>
@@ -60,7 +60,7 @@
         <div class="yourBox">
             <h1 class="title">Your Lists</h1>
             {% for ur in your %}
-            <div class="listBox">
+            <div class="listBox" data-id="{{ ur.id }}">
                 <h1>{{ ur.title }}</h1>
             </div>
             {% endfor %}
@@ -71,7 +71,7 @@
         <div class="allBox">
             <h1 class="title">All Lists</h1>
                 {% for list in lists %}
-                <div class="listBox">
+                <div class="listBox" data-id="{{ list.id }}">
                     <h1>{{ list.title }}</h1>
                     <div class="botRight">
                         {{ list.user.username}}
@@ -81,8 +81,27 @@
         </div>
     </div>
 
+
+    {% for list in all %}
+
+        <script>
+
+            const lists = document.querySelectorAll('.listBox');
+
+            lists.forEach(list => {
+                list.addEventListener('click', ()=> {
+
+                    const id = list.dataset.id;
+                    window.location.href = `/list/view/${id}`;
+
+                })
+            })
+
+        </script>
+    
+    {% endfor %}
+
     <script>
-        
         const profile = document.querySelector('.profile');
         const create = document.querySelector('.create');
         const createCon = document.querySelector('.createCon');
@@ -95,7 +114,6 @@
         const allBox = document.querySelector('.allBox');
         const public = document.querySelector('.public');
         const private = document.querySelector('.private');
-
 
         your.addEventListener('click', ()=> {
             yourCon.style.display = 'flex';
