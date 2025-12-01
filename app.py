@@ -259,6 +259,14 @@ def view(list_id):
         db.session.commit()
         return redirect(url_for('view', list_id=list_id))
 
+@app.route('/list/delete/<int:item_id>')
+@login_required
+def delete_item(item_id):
+    item = ListItem.query.get_or_404(item_id)
+    list_id = item.list_id
+    db.session.delete(item)
+    db.session.commit()
+    return redirect(url_for('view', list_id=list_id))
 
 
 # Run
