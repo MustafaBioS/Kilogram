@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kilogram - {{ current.title }}</title>
-    <link rel="icon" href="../static/burg.png">
     <link rel="stylesheet" href="{{ url_for('static', filename='list.css') }}">
+    <link rel="icon" href="../static/burg.png">
 </head>
 <body>
 
@@ -23,18 +23,27 @@
             <h1 class="viewtitle">{{ current.title }}</h1>
             <ul>
                 {% for item in current.items %}
-                    <li>{{ item.text }}</li>
+                    <div class="listRow">
+                        <li class="listItem">{{ item.text }}</li>
+                        <h1 class="trash" onclick="reroute()">🗑</h1>
+                    </div>
+                    <script>
+                        function reroute() {
+                            window.location.href = '{{ url_for("delete_item", item_id=item.id) }}'
+                        }
+                    </script>
                 {% endfor %}
             </ul>
         </div>
     </div>
     
 <script>
-
     const profile = document.querySelector('.profile');
     const createCont = document.querySelector('.createCont');
     const createBoxed = document.querySelector('.createBoxed');
     const plus = document.querySelector('.plus');
+
+
 
     plus.addEventListener('click', ()=> {
         createCont.classList.add('show');

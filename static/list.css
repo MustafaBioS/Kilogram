@@ -385,3 +385,29 @@ html body {
 .listSub:hover {
     background-color: #FF7043;
 }
+
+.listItem {
+    text-decoration: none;
+    list-style: none;
+    font-size: 30px;
+    margin-right: 30px;
+    margin-bottom: 10px;
+}
+
+.listRow {
+    display: flex;
+    flex-direction: row;
+}
+
+.trash {
+    margin-top: -10px;
+    user-select: none;
+    transition: all 0.3s ease;
+    font-size: 40px;
+}
+
+.trash:hover {
+    transform: translateY(-6px);
+    color: red;
+    cursor: pointer;
+}
