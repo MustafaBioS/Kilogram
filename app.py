@@ -12,9 +12,8 @@ app = Flask(__name__)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
 
-load_dotenv()
-secret = os.getenv("secret_key")
-app.config['SECRET_KEY'] = secret
+load_dotenv("/home/mustafahany2/pub/Kilogram/.env")
+app.config['SECRET_KEY'] = os.getenv("secret_key")
 
 db = SQLAlchemy(app)
 
