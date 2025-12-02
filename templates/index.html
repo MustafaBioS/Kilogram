@@ -19,7 +19,7 @@
 
             <div class="center">
                 <a href="{{ url_for('home') }}" class="anc feed">Feed</a>
-                <a href="#" class="anc">Categories</a>
+                <a href="#" class="anc cat">Categories</a>
                 <a href="{{ url_for('list') }}" class="anc">List</a>
             </div>
 
@@ -102,7 +102,12 @@
         const authorpfp = document.querySelectorAll('.authorpfp');
         const send = document.querySelector('.send');
         const plus = document.querySelectorAll('.plus');
+        const cat = document.querySelector('.cat');
         var on = false
+
+        cat.addEventListener('click', ()=> {
+            alert("W.I.P");
+        })
 
         plus.forEach(pl => {
             pl.addEventListener('click', ()=> {
